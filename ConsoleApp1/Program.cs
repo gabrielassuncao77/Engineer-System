@@ -11,7 +11,7 @@ namespace Enginnier
     {
         static void Main(string[] args)
         {
-            Menu MeuMenu = new Menu(new Operacoes(), new Dados());
+            Menu MeuMenu = new Menu(new Operacoes(), new Data());
 
             MeuMenu.MostraMenu();
         }

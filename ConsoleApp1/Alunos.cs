@@ -1,51 +1,54 @@
-﻿using System;
+﻿using ConsoleApp1;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Enginnier
 {
     public class Engineer
     {
         public string ID { get; set; }
-        public string name { get; set; }
-        public string age { get; set; }
-        public string role { get; set; }
-        public string department { get; set; }
-        public DateTime birthday { get; set; }
+        public string Name { get; set; }
+        public string Age { get; set; }
+        public string Role { get; set; }
+        public string Department { get; set; }
+        public DateTime Birthday { get; set; }
+
+
+        // Lista de projetos associados ao engenheiro
+        public List<Project> Projects { get; set; }
 
         public Engineer()
         {
-            ID = Guid.NewGuid().ToString().Substring(1, 9).ToUpper();
-
+            ID = Guid.NewGuid().ToString().Substring(5, 9).ToUpper();
+            Projects = new List<Project>();
         }
 
-        public void readEnginnerData(bool showID = true)
+        public void ReadEngineerData(bool showID = true)
         {
             if (showID)
             {
                 Console.WriteLine($"ID is {ID}");
             }
             Console.WriteLine("Insert name: ");
-            name = Console.ReadLine();
+            Name = Console.ReadLine();
 
             Console.WriteLine("Insert age: ");
-            age = Console.ReadLine();
+            Age = Console.ReadLine();
 
             Console.WriteLine("Insert role: ");
-            role = Console.ReadLine();
+            Role = Console.ReadLine();
 
-            Console.WriteLine("Insert deparment: ");
-            department = Console.ReadLine();
+            Console.WriteLine("Insert department: ");
+            Department = Console.ReadLine();
 
-            Console.WriteLine("Insert birthdate in the internacional model... (dd/MM/yy");
+            Console.WriteLine("Insert birthdate in the international model... (dd/MM/yy)");
             string inputBirthdate = Console.ReadLine();
             bool format = false;
             while (!format)
             {
                 if (DateTime.TryParseExact(inputBirthdate, "dd/MM/yy", null, System.Globalization.DateTimeStyles.None, out DateTime birthday))
                 {
+                    Birthday = birthday; // Atribuir o valor convertido à propriedade Birthday
                     format = true;
                 }
                 else
@@ -56,18 +59,19 @@ namespace Enginnier
             }
         }
 
-        public void showEnginnerData()
+        public void ShowEngineerData()
         {
-            Console.WriteLine("Enginner personal data...");
+            Console.WriteLine("Engineer personal data...");
             Console.WriteLine("----------------------");
             Console.WriteLine($"ID: {ID}");
-            Console.WriteLine($"name: {name}");
-            Console.WriteLine($"age: {age}");
-            Console.WriteLine($"role: {role}");
-            Console.WriteLine($"department: {department}");
-            Console.WriteLine($"Birthdate: " + birthday.ToString("dd/MM/yy"));
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Age: {Age}");
+            Console.WriteLine($"Role: {Role}");
+            Console.WriteLine($"Department: {Department}");
+            Console.WriteLine($"Birthdate: " + Birthday.ToString("dd/MM/yy"));
             Console.WriteLine("----------------------");
 
-         }
+
+        }
     }
 }

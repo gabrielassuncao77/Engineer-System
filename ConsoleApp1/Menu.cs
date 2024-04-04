@@ -14,9 +14,9 @@ namespace Enginnier
         private string SearchID;
 
         private Operacoes Op;
-        private Dados Data;
+        private Data Data;
 
-        public Menu(Operacoes O, Dados D)
+        public Menu(Operacoes O, Data D)
         {
             Op = O;
             Data = D;
@@ -42,7 +42,8 @@ namespace Enginnier
                 Console.WriteLine("8 - Carregar de XML");
                 Console.WriteLine("9 - Sair");
                 Console.WriteLine("10 - Insert Project");
-                Console.WriteLine("10 - List Project");
+                Console.WriteLine("11 - List Project");
+                Console.WriteLine("12 - Associate Project");
 
                 Console.Write("\nOpção: ");
                 Opção = int.Parse(Console.ReadLine());
@@ -96,7 +97,7 @@ namespace Enginnier
                         Console.Write("Código do Aluno: ");
                         SearchID = Console.ReadLine();
 
-                        Op.Search(SearchID, new Engineer(), Data);
+                        Op.EngineerSearcher(SearchID, new Engineer(), Data);
 
                         break;
                     case 5:
@@ -142,13 +143,21 @@ namespace Enginnier
                     case 10:
                         Console.Clear();
                         Console.WriteLine("Project register... ");
-                        Op.insertProject(new EnginnerProject(), Data);
+                        Op.insertProject(new Project(), Data);
                         break;
                     case 11:
                         Console.Clear();
                         Console.WriteLine("Listing projects...");
                         Op.ListProject(Data);
                         break;
+                    case 12:
+                        Console.Clear();
+                        Console.WriteLine("Searching projects...");
+                        Console.Write("Código do Aluno: ");
+                        SearchID = Console.ReadLine();
+                        Op.ProjectSearcher(SearchID, new Project(), Data);
+                        break;
+
                 }
             } while (Opção != 9);
         }

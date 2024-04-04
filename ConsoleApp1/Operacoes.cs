@@ -13,51 +13,53 @@ namespace Enginnier
 {
     class Operacoes
     {
-        public void Insert(Engineer x, Dados EngineerData)
+        public void Insert(Engineer x, Data EngineerData)
         {
-            x.readEnginnerData();
+            x.ReadEngineerData();
 
             EngineerData.InsertEngineer(x);
         }
-        public void insertProject(EnginnerProject X, Dados MeusDados) 
+        public void insertProject(Project X, Data EngineerData) 
         {
             X.readProject();
-            MeusDados.InsertProject(X);
+            EngineerData.InsertProject(X);
         }
-        public void List(Dados EngineerData)
+        public void List(Data EngineerData)
         {
-            ArrayList Lista;
+            ArrayList List;
 
-            Lista = EngineerData.ListEngineers();
+            List = EngineerData.ListEngineers();
 
-            foreach (Engineer x in Lista)
+            foreach (Engineer x in List)
             {
-                x.showEnginnerData();
+                x.ShowEngineerData();
             }
             Console.ReadKey();
         }
-        public void ListProject(Dados EngineerData) 
+        public void ListProject(Data Project)
         {
-            ArrayList Lista;
+            List<Project> List;
 
-            Lista = EngineerData.ListProjects();
-            foreach(EnginnerProject x in Lista) 
+            List = Project.ListProjects();
+            foreach (Project x in List)
             {
                 x.showProject();
             }
             Console.ReadKey();
         }
-        public void Alter(string SearchID, Engineer EnginnerSearched, Engineer EnginnerChanged, Dados EngineerData)
+
+    
+        public void Alter(string SearchID, Engineer EnginnerSearched, Engineer EnginnerChanged, Data EngineerData)
         {
             EnginnerSearched = EngineerData.SearchEngineer(SearchID);
 
             if (EnginnerSearched != null)
             {
-                EnginnerSearched.showEnginnerData();
+                EnginnerSearched.ShowEngineerData();
 
                 Console.WriteLine("Dados de Atualização: \n");
 
-                EnginnerChanged.readEnginnerData(false);
+                EnginnerChanged.ReadEngineerData(false);
 
                 EnginnerChanged.ID = EnginnerSearched.ID;
 
@@ -73,13 +75,13 @@ namespace Enginnier
             }
         }
 
-        public void Remove(string SearchID, Engineer X, Dados data)
+        public void Remove(string SearchID, Engineer X, Data data)
         {
             X = data.SearchEngineer(SearchID);
 
             if (X != null)
             {
-                X.showEnginnerData();
+                X.ShowEngineerData();
 
                 data.RemoveEngineer(X);
 
@@ -88,27 +90,53 @@ namespace Enginnier
             }
             else
             {
-                Console.Write("\Engenheiro não encontrado...");
+                Console.Write("\nEngineer not found");
             }
         }
 
-        public void Search(string ID, Engineer X, Dados EngineerData)
+        public void EngineerSearcher(string ID, Engineer X, Data EngineerData)
         {
             X = EngineerData.SearchEngineer(ID);
 
             if (X != null)
             {
-                X.showEnginnerData();
+                X.ShowEngineerData();
             }
             else
             {
-                Console.Write("\nEngenheiro não encontrado...");
+                Console.Write("\nEngineer not found");
             }
 
             Console.ReadKey();
         }
 
-        public void Order(Dados EnginnerData)
+        public void ProjectSearcher(string ID, Project Y, Data ProjectData) 
+        {
+            Y = ProjectData.SearchProject(ID);
+
+            if (Y != null)
+            {
+                Y.showProject();
+            }
+            else 
+            {
+                Console.Write("\nProject not found...");
+            }
+            Console.ReadKey();
+        }
+        
+        public void AddEngineerToProject(string IdEngineer, string IdProject, Data data, Engineer X, Project Y) 
+        {
+            Y = data.SearchProject(IdProject);
+            X = data.SearchEngineer(IdEngineer);
+
+            if (X!=null && Y!=null) 
+            {
+                
+            }
+        }
+
+        public void Order(Data EnginnerData)
         {
             int Registers;
 
@@ -119,7 +147,7 @@ namespace Enginnier
             Console.ReadKey();
         }
 
-        public void SaveXML(Dados EngineerData)
+        public void SaveXML(Data EngineerData)
         {
             int TotReg;
 
@@ -132,7 +160,7 @@ namespace Enginnier
             Console.ReadKey();
         }
 
-        public void ReadXML(Dados EngineerData)
+        public void ReadXML(Data EngineerData)
         {
             int TotReg;
 

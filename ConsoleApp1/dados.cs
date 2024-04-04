@@ -8,15 +8,16 @@ using ConsoleApp1;
 
 namespace Enginnier
 {
-    class Dados
+    public class Data
     {
         private ArrayList RegisterArray;
-        public ArrayList EngineersProjects;
+        public List<Project> Projects { get; set; }
+        public List<ProjectEngineer> Responsables { get; set; }
 
-        public Dados()
+        public Data()
         {
             RegisterArray = new ArrayList();
-            EngineersProjects = new ArrayList(); // Inicializa a lista de projetos
+            Projects = new List<Project>();
         }
 
         public void InsertEngineer(Engineer x)
@@ -31,13 +32,13 @@ namespace Enginnier
 
         public void AlterEngineer(Engineer x, Engineer y)
         {
-            int Posição;
+            int Position;
 
-            Posição = RegisterArray.IndexOf(x);
+            Position = RegisterArray.IndexOf(x);
 
             RegisterArray.Remove(x);
 
-            RegisterArray.Insert(Posição, y);
+            RegisterArray.Insert(Position, y);
         }
 
         public Engineer SearchEngineer(string ID)
@@ -48,6 +49,17 @@ namespace Enginnier
                     return x;
             }
 
+            return null;
+        }
+        public Project SearchProject(string ID) 
+        {
+            foreach (Project y in Projects) 
+            {
+                if (y.ProjectID.ToUpper() == ID.ToUpper()) 
+                {
+                    return y;
+                }
+            }
             return null;
         }
 
@@ -63,41 +75,44 @@ namespace Enginnier
             return RegisterArray.Count;
         }
 
-        public void InsertProject(EnginnerProject project)
+        public void InsertProject(Project project)
         {
-            EngineersProjects.Add(project);
+            Projects.Add(project);
         }
 
-        public void RemoveProject(EnginnerProject project)
+        public void RemoveProject(Project project)
         {
-            EngineersProjects.Remove(project);
+            Projects.Remove(project);
         }
 
-        public ArrayList ListProjects()
+        public List<Project> ListProjects()
         {
-            return EngineersProjects;
+            return Projects;
         }
-
-        public void AssociateProjectEngineer(Engineer engineer, EnginnerProject project)
+        
+        public void addResponsability(Engineer idEngineer, Project idProject) 
         {
-            project.addEnginner(engineer);
+            if(idEngineer !=null && idProject != null) 
+            {
+                Responsables.Add(idEngineer);
+            }
         }
-
+        
         public class OrderingProcess : IComparer
         {
             int IComparer.Compare(object x, object y)
             {
-                return ((Engineer)x).name.CompareTo(((Engineer)y).name);
+                return ((Engineer)x).Name.CompareTo(((Engineer)y).Name);
             }
         }
 
         public int SaveXML()
         {
             TextWriter Writer = new StreamWriter(@"E:\xLixo\CadastroAlunos.xml");
-            Engineer[] ListaAlunoVetor = (Engineer[])RegisterArray.ToArray(typeof(Engineer));
-            XmlSerializer Serialização = new XmlSerializer(ListaAlunoVetor.GetType());
+            Engineer[] EngineerArray = (Engineer[])RegisterArray.ToArray(typeof(Engineer));
+            XmlSerializer Serialization = new XmlSerializer(EngineerArray.GetType());
 
-            Serialização.Serialize(Writer, ListaAlunoVetor);
+            Serialization.Serialize(Writer, EngineerArray);
 
             Writer.Close();
 
@@ -108,9 +123,9 @@ namespace Enginnier
         {
             FileStream XML = new FileStream(@"E:\xLixo\CadastroAlunos.xml", FileMode.Open);
             Engineer[] EngineerList = (Engineer[])RegisterArray.ToArray(typeof(Engineer));
-            XmlSerializer Serialização = new XmlSerializer(EngineerList.GetType());
+            XmlSerializer Serialization = new XmlSerializer(EngineerList.GetType());
 
-            EngineerList = (Engineer[])Serialização.Deserialize(XML);
+            EngineerList = (Engineer[])Serialization.Deserialize(XML);
 
             RegisterArray.Clear();
 
