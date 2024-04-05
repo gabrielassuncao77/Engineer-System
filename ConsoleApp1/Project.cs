@@ -15,12 +15,12 @@ namespace ConsoleApp1
         public string ProjectID { get; set; }
         public string EngineerID { get; set; } 
 
-        public List<Engineer> Engineers { get; set; }
+        public List<ProjectEngineer> Engineers { get; set; }
 
         public Project()
         {
             ProjectID = Guid.NewGuid().ToString().Substring(5, 9).ToUpper();
-            Engineers = new List<Engineer>();
+            Engineers = new List<ProjectEngineer>();
         }
         public void readProject(bool showID = true)
         {

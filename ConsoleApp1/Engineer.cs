@@ -12,15 +12,13 @@ namespace Enginnier
         public string Role { get; set; }
         public string Department { get; set; }
         public DateTime Birthday { get; set; }
+        public List<ProjectEngineer> Projects { get; set; }
 
-
-        // Lista de projetos associados ao engenheiro
-        public List<Project> Projects { get; set; }
 
         public Engineer()
         {
             ID = Guid.NewGuid().ToString().Substring(5, 9).ToUpper();
-            Projects = new List<Project>();
+            Projects = new List<ProjectEngineer>();
         }
 
         public void ReadEngineerData(bool showID = true)

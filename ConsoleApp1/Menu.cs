@@ -11,12 +11,13 @@ namespace Enginnier
 { 
     class Menu
     {
-        private string SearchID;
+        private string SearchIDengineer;
+        private string SearchIDproject;
 
-        private Operacoes Op;
+        private Operations Op;
         private Data Data;
 
-        public Menu(Operacoes O, Data D)
+        public Menu(Operations O, Data D)
         {
             Op = O;
             Data = D;
@@ -32,18 +33,20 @@ namespace Enginnier
                 Console.WriteLine("Sistema de Cadastro de Alunos");
                 Console.WriteLine("=============================\n");
 
-                Console.WriteLine("1 - Inserir");
-                Console.WriteLine("2 - Alterar");
-                Console.WriteLine("3 - Excluir");
-                Console.WriteLine("4 - Pesquisar");
-                Console.WriteLine("5 - Listar");
-                Console.WriteLine("6 - Ordenar");
-                Console.WriteLine("7 - Salvar em XML");
-                Console.WriteLine("8 - Carregar de XML");
-                Console.WriteLine("9 - Sair");
-                Console.WriteLine("10 - Insert Project");
-                Console.WriteLine("11 - List Project");
-                Console.WriteLine("12 - Associate Project");
+                Console.WriteLine("1 - Insert Engineer");
+                Console.WriteLine("2 - Alter Engineer");
+                Console.WriteLine("3 - Remove Engineer");
+                Console.WriteLine("4 - Search by ID");
+                Console.WriteLine("5 - List");
+                Console.WriteLine("6 - Order");
+                Console.WriteLine("7 - Salve in XML");
+                Console.WriteLine("8 - load by XML");
+                Console.WriteLine("9 - Insert Project");
+                Console.WriteLine("10 - List Project");
+                Console.WriteLine("11 - Search Project");
+                Console.WriteLine("12 - Associate Project to engineer");
+                Console.WriteLine("13- Exit");
+
 
                 Console.Write("\nOpção: ");
                 Opção = int.Parse(Console.ReadLine());
@@ -55,12 +58,12 @@ namespace Enginnier
                         {
                             Console.Clear();
 
-                            Console.WriteLine("Cadastro de Aluno");
+                            Console.WriteLine("Registering engineers..");
                             Console.WriteLine("=================\n");
 
                             Op.Insert(new Engineer(), Data);
 
-                            Console.WriteLine("\nInserir outro Registro? (ESC Cancela...)");
+                            Console.WriteLine("\nWanna regist another data? (PRESS ESC TO CANCEL...)");
 
                         } while (Console.ReadKey().Key != ConsoleKey.Escape);
 
@@ -68,52 +71,53 @@ namespace Enginnier
                     case 2:
                         Console.Clear();
 
-                        Console.WriteLine("Alteração de Dados de Aluno");
+                        Console.WriteLine("Altering engineer registers...");
                         Console.WriteLine("===========================\n");
 
-                        Console.Write("Código.......: ");
-                        SearchID = Console.ReadLine();
-                        Op.Alter(SearchID, new Engineer(), new Engineer(), Data);
+                        Console.Write("Engineer ID...: ");
+                        SearchIDengineer = Console.ReadLine();
+                        Op.Alter(SearchIDengineer, new Engineer(), new Engineer(), Data);
 
                         break;
                     case 3:
                         Console.Clear();
 
-                        Console.WriteLine("Exclusão de Aluno do Cadastro");
+                        Console.WriteLine("Remove engineer....");
                         Console.WriteLine("=============================\n");
 
-                        Console.Write("Código.....: ");
-                        SearchID = Console.ReadLine();
+                        Console.Write("Engineer ID: ");
+                        SearchIDengineer = Console.ReadLine();
 
-                        Op.Remove(SearchID, new Engineer(), Data);
+                        Op.Remove(SearchIDengineer, new Engineer(), Data);
 
                         break;
                     case 4:
                         Console.Clear();
 
-                        Console.WriteLine("Pesquisa de Aluno no Cadastro");
+                        Console.WriteLine("Search engineers...");
                         Console.WriteLine("=============================\n");
 
-                        Console.Write("Código do Aluno: ");
-                        SearchID = Console.ReadLine();
+                        Console.Write("Engineer ID: ");
+                        SearchIDengineer = Console.ReadLine();
 
-                        Op.EngineerSearcher(SearchID, new Engineer(), Data);
+                        Op.EngineerSearcher(SearchIDengineer, new Engineer(), Data);
 
                         break;
                     case 5:
                         Console.Clear();
 
-                        Console.WriteLine("Listagem de Alunos");
-                        Console.WriteLine("==================\n");
-
+                        Console.WriteLine("List engineers...");
+                        Console.WriteLine("===========================\n");
+                        Console.WriteLine();
                         Op.List(Data);
 
                         break;
                     case 6:
                         Console.Clear();
 
-                        Console.WriteLine("Ordenação de Registros do Cadastro");
-                        Console.WriteLine("==================================\n");
+                        Console.WriteLine("Ordering engineers registers...");
+                        Console.WriteLine("===========================\n");
+                        Console.WriteLine();
 
                         Op.Order(Data);
 
@@ -121,45 +125,67 @@ namespace Enginnier
                     case 7:
                         Console.Clear();
 
-                        Console.WriteLine("Salvar Dados em Arquivo XML");
+                        Console.WriteLine("Save data in XML...");
                         Console.WriteLine("===========================\n");
-
-                        Op.SaveXML(Data);
-
                         break;
                     case 8:
                         Console.Clear();
 
-                        Console.WriteLine("Ler Dados de Arquivo XML");
+                        Console.WriteLine("Read XML file...");
+                        Console.WriteLine("===========================\n");
+                        break;
+
+                    case 9:
+                        Console.Clear();
+                        Console.WriteLine("Project register... ");
                         Console.WriteLine("===========================\n");
 
-                        Op.SaveXML(Data);
+                        Op.insertProject(new Project(), Data);
 
-                        break;
-                    case 9:
-                        Console.Write("\nSaída do sistema...");
-                        Thread.Sleep(3000);
                         break;
                     case 10:
                         Console.Clear();
-                        Console.WriteLine("Project register... ");
-                        Op.insertProject(new Project(), Data);
+                        Console.WriteLine("Listing projects...");
+                        Console.WriteLine("===========================\n");
+                        Console.WriteLine();
+                        Op.ListProject(Data);
+
                         break;
                     case 11:
                         Console.Clear();
-                        Console.WriteLine("Listing projects...");
-                        Op.ListProject(Data);
+                        Console.WriteLine("Searching projects...");
+                        Console.WriteLine("===========================\n");
+                        Console.WriteLine();
+                        Console.Write("Project searched: ");
+                        Console.WriteLine();
+                        SearchIDproject = Console.ReadLine();
+                        Op.ProjectSearcher(SearchIDproject, new Project(), Data);
                         break;
                     case 12:
-                        Console.Clear();
-                        Console.WriteLine("Searching projects...");
-                        Console.Write("Código do Aluno: ");
-                        SearchID = Console.ReadLine();
-                        Op.ProjectSearcher(SearchID, new Project(), Data);
+                        do
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Responsabilit");
+                            Console.WriteLine("===========================\n");
+                            Console.WriteLine();
+                            Console.WriteLine("Engineer ID: ");
+                            SearchIDengineer = Console.ReadLine();
+                            Console.WriteLine();
+                            Console.WriteLine("Project ID:");
+                            SearchIDproject = Console.ReadLine();
+
+                            Op.AddEngineerToProject(SearchIDengineer, SearchIDproject, Data, new Engineer(), new Project());
+                            Console.WriteLine("\nWanna regist another data? (PRESS ESC TO CANCEL...)");
+                        } while (Console.ReadKey().Key != ConsoleKey.Escape);
+                        break;
+
+                    case 13:
+                        Console.Write("\nSaída do sistema...");
+                        Thread.Sleep(3000);
                         break;
 
                 }
-            } while (Opção != 9);
+            } while (Opção != 13);
         }
     }
 }

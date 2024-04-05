@@ -11,7 +11,7 @@ using ConsoleApp1;
 
 namespace Enginnier
 {
-    class Operacoes
+    class Operations
     {
         public void Insert(Engineer x, Data EngineerData)
         {
@@ -22,11 +22,12 @@ namespace Enginnier
         public void insertProject(Project X, Data EngineerData) 
         {
             X.readProject();
+
             EngineerData.InsertProject(X);
         }
         public void List(Data EngineerData)
         {
-            ArrayList List;
+            List<Engineer> List;
 
             List = EngineerData.ListEngineers();
 
@@ -57,7 +58,7 @@ namespace Enginnier
             {
                 EnginnerSearched.ShowEngineerData();
 
-                Console.WriteLine("Dados de Atualização: \n");
+                Console.WriteLine("Data to be updated:  \n");
 
                 EnginnerChanged.ReadEngineerData(false);
 
@@ -65,13 +66,13 @@ namespace Enginnier
 
                 EngineerData.AlterEngineer(EnginnerSearched, EnginnerChanged);
 
-                Console.Write("\nDados Atualizados...");
+                Console.Write("\nData updated");
 
                 Console.ReadKey();
             }
             else
             {
-                Console.Write("\nEngenheiro não encontrado...");
+                Console.Write("\nEngineer not found");
             }
         }
 
@@ -85,7 +86,7 @@ namespace Enginnier
 
                 data.RemoveEngineer(X);
 
-                Console.WriteLine("Engenheiro Excluído do Cadastro...");
+                Console.WriteLine("Engineer removed...");
                 Console.ReadKey();
             }
             else
@@ -130,10 +131,21 @@ namespace Enginnier
             Y = data.SearchProject(IdProject);
             X = data.SearchEngineer(IdEngineer);
 
-            if (X!=null && Y!=null) 
+            if (X!=null || Y!=null) 
             {
-                
+                data.addResponsability(X, Y);
+                Console.WriteLine($"Project {Y.projectName} added to enginner {X.Name}");
             }
+            else
+            {
+                Console.WriteLine("Something went wrong..");
+            }
+            Console.ReadKey();
+        }
+
+        public void ListEngineerByProject()
+        {
+            
         }
 
         public void Order(Data EnginnerData)
@@ -142,33 +154,7 @@ namespace Enginnier
 
             Registers = EnginnerData.OrderingEngineer();
 
-            Console.Write($"Total de Registros: {Registers}");
-
-            Console.ReadKey();
-        }
-
-        public void SaveXML(Data EngineerData)
-        {
-            int TotReg;
-
-            TotReg = EngineerData.SaveXML();
-
-            Console.WriteLine("Arquivo XML criado com sucesso...");
-
-            Console.Write($"Total de Registros: {TotReg}");
-
-            Console.ReadKey();
-        }
-
-        public void ReadXML(Data EngineerData)
-        {
-            int TotReg;
-
-            TotReg = EngineerData.ReadXML();
-
-            Console.WriteLine("Arquivo XML carregado com sucesso...");
-
-            Console.Write($"Total de Registros: {TotReg}");
+            Console.Write($"Total registers: {Registers}");
 
             Console.ReadKey();
         }
